@@ -13,13 +13,20 @@ class Order extends Model
     protected $primaryKey = "id";
 
     public $fillable = [
-        'product_id',
         'user_id',
-        'order_status',
-        'payment_method',
-        'payment_status',
-        'address'
+        'order_no',
+        'order_date',
+        'estimate_delivery_date',
+        'total_qty',
+        'ship_price',
+        'order_status_id',
+        'total_amount',
+        'status',
+        'status_update_date',
     ];
 
-    
+    public function viewOrderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
 }

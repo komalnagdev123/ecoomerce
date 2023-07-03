@@ -19,6 +19,8 @@ class CreatePaymentsTable extends Migration
             $table->string('user_id');
             $table->string('amount');
             $table->string('payment_status');
+            $table->date('payment_date');
+            
             $table->timestamps();
         });
     }

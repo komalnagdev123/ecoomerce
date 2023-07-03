@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <label for="buyer_name" class="col-md-12 col-form-label">Buyer Name</label>
                             <div class="col-md-12">
-                                <input id="buyer_name" type="text" class="form-control" name="buyer_name" value="{{ Auth::user()->name }}" required>
+                                <input id="buyer_name" type="text" readonly class="form-control" name="buyer_name" value="{{ Auth::user()->name }}" required>
                                 @if ($errors->has('buyer_name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('buyer_name') }}</strong>
@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <label for="amount" class="col-md-12 col-form-label">Amount</label>
                             <div class="col-md-12">
-                                <input id="amount" type="number" readonly class="form-control" name="amount" value="{{ $data['final_amt'] }}" required>
+                                <input id="amount" type="number" readonly class="form-control" name="amount" value="{{ $data }}" required>
                                 @if ($errors->has('amount'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('amount') }}</strong>
@@ -49,21 +49,11 @@
                                 @endif
                             </div>
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="amount" class="col-md-12 col-form-label">Address</label>
-                            <div class="col-md-12">
-                                <input id="address" type="text" class="form-control" name="address" value="" required>
-                                @if ($errors->has('address'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('address') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div> --}}
+                        
                         <div class="form-group">
                             <label for="phone" class="col-md-12 col-form-label">Phone No.</label>
                             <div class="col-md-12">
-                                <input id="phone" type="number" class="form-control" name="phone" value="" required>
+                                <input id="phone" type="number" class="form-control" readonly name="phone" value="{{ Auth::user()->contact_no }}" required>
                                 @if ($errors->has('phone'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('phone') }}</strong>

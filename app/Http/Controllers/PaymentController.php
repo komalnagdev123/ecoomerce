@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use View;
 use Session;
 use Redirect;
-use App\Models\Cart;
 use App\Models\Payment;
 use App\Models\Order;
 
+use Illuminate\Support\Carbon;
 class PaymentController extends Controller
 {
     public function __construct()
@@ -103,32 +103,26 @@ class PaymentController extends Controller
         
         if($data->success == true) {
            // dd($data);
-
-            // Add Data in Orders table and delete from cart table
+            $now = \Carbon\Carbon::now();
             $user_id = Auth::user()->id;
-
-            $cartItems = Cart::where('user_id',$user_id)->get();
             
-            foreach($cartItems as $item)
-            {
-                $order = new Order();
-                $order->product_id = $item->product_id;
-                $order->user_id = $item->user_id;
-                $order->order_status = 1;
-                $order->payment_method = 'Instamojo';
-                $order->payment_status = 'Credit';
-                $order->save();
-            }
-            Cart::where('user_id',$user_id)->delete();
-
             //Insert Into Payment Table
             $payment = new Payment();
             $payment->i_payment_id = $data->payment->payment_id;
             $payment->user_id = $user_id;
             $payment->amount = $data->payment->amount;
             $payment->payment_status = $data->payment->status;
+            $payment->payment_date = $now;
             $payment->save();
+            $payment_id = $payment->id;
 
+            //Update Payment Id in Order Table
+            $order_id = Order::select('id')->where('user_id',$user_id)->orderby('id','DESC')->first();
+            
+            $orderUpdate = Order::find($order_id->id);
+            $orderUpdate->payment_id = $payment_id;
+            $orderUpdate->save();
+            
             if($data->payment->status == 'Credit') {
                 
                 // From here you can save respose data in database from $data

@@ -40,7 +40,7 @@
                                     <h6 class="text-success">Free shipping</h6>
                                     @php
                                     if (auth()->check())
-                                    $result = App\Http\Controllers\ProductController::checkCartProduct($item['id']);
+                                    $result = App\Http\Controllers\CartController::checkCartProduct($item['id']);
                                     @endphp
                                     <div class="d-flex flex-column mt-4">
                                         <form action="{{ route('add_to_cart') }}" method="post">

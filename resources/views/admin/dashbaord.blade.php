@@ -10,15 +10,15 @@
             <a href="{{ route('products.index') }}" class="btn btn-info" role="button">
                 Products List
             </a>
-            <table class="table table-bordered data-table">
+            <table class="table table-bordered data-table" id="ordersTable">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Payment Id</th>
-                        <th>User Id</th>
-                        <th>Amount</th>
-                        <th>Payment Status</th>
-                        {{-- <th width="100px">Action</th> --}}
+                        <th>ORDER ID</th>
+                        <th>CUSTOMER NAME</th>
+                        <th>ORDER DATE</th>
+                        <th>ORDER AMOUNT</th>
+                        <th>ORDER STATUS</th>
+                        <th style="text-align: center;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,22 +29,65 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {
-      
-      var table = $('.data-table').DataTable({
-          processing: true,
-          serverSide: true,
-          ajax: "{{ route('admindashboard') }}",
-          columns: [
-              {data: 'id', name: 'id'},
-              {data: 'i_payment_id', name: 'i_payment_id'},
-              {data: 'user_id', name: 'user_id'},
-              {data: 'amount', name: 'amount'},
-              {data: 'payment_status', name: 'payment_status'},
-            //   {data: 'action', name: 'action', orderable: false, searchable: false},
-          ]
-      });
-      
+$(document).ready(function() {
+    getOrders();
     });
+
+    function getOrders()    
+        {  
+            var table = $('#ordersTable').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax:{
+                        url : "{{ route('admindashboard') }}",
+                    },
+                    columns: [
+                        {
+                            data: 'id',
+                            name: 'id',
+                            orderable: true,
+                            class: 'text-left',
+                            render: function(data, type, row) {
+                                return `
+                                <div style="text-transform: capitalize;">
+                                        ${row.id}
+                                </div>`;
+                            }
+                        },
+                        {
+                            data: 'customer_name',
+                            name: 'customer_name',
+                            orderable: true,
+                            class: 'text-left',
+                        },
+                        
+                        {
+                            data: 'order_date',
+                            name: 'order_date',
+                            orderable: true,
+                            class: 'text-left',
+                        },
+                        
+                        {
+                            data: 'total_amount',
+                            name: 'total_amount',
+                            orderable: true,
+                            class: 'text-left',
+                        },
+                        {
+                            data: 'order_status_id',
+                            name: 'order_status_id',
+                            orderable: true,
+                            class: 'text-left',
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
+                        },
+                    ]
+                });
+        }
   </script>
 @endsection

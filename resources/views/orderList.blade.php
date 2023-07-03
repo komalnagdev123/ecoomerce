@@ -26,7 +26,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+{{-- <div class="container">
     @if (session('success_message'))
         <div class="alert alert-success" role="alert">
             {{ session('success_message') }}
@@ -96,6 +96,6 @@
             @endif
         </div>
     </section>
-</div>
+</div> --}}
 
 @endsection

@@ -83,7 +83,7 @@
                             @if(Auth::user()->role == 0)
                             <li class="nav-item">
                                 @php
-                                $total = App\Http\Controllers\ProductController::cartTotal();
+                                $total = App\Http\Controllers\CartController::cartTotal();
                                 @endphp
                                 <a class="nav-link" href="{{ route('cart_list') }}">Cart({{ $total }})</a>
                             </li>

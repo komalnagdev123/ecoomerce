@@ -1,0 +1,26 @@
+1) Admin Credentials:- 
+Email:- admin@gmail.com
+Password:- 12345678
+
+Normal User Credentials:-
+
+Email:- komal@gmail.com
+Password:- 12345678
+
+Email:- akansha@gmail.com
+Password:- 12345678
+
+Credit Card Details:-
+Card No : 4242424242424242
+Month : any future month
+Year : any future Year
+CVV : 111
+Password : 111
+
+
+Steps to setup Project
+
+1) Paste folder (Main folder) in your (HTDOCs) folder
+2) Run command composer update
+3) Create DB
+4) Change details in .ENV file. (DB details and App Url etc)
